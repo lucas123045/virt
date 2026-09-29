@@ -1,0 +1,105 @@
+/* Oficina do virt: tons escuros de oficina, âmbar de lâmpada incandescente */
+:root {
+  --fundo: #0b0807;
+  --painel: rgba(18, 13, 11, 0.78);
+  --borda: rgba(214, 170, 110, 0.18);
+  --texto: #e6d9c3;
+  --apagado: #8f7f6a;
+  --ambar: #e0a458;
+  --vermelho: #c0392b;
+  --mono: "IBM Plex Mono", ui-monospace, Consolas, monospace;
+  --maquina: "Special Elite", "Courier New", monospace;
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  height: 100%;
+  overflow: hidden;
+  background: var(--fundo);
+  color: var(--texto);
+  font-family: var(--mono);
+  font-size: 14px;
+}
+
+#cena { position: fixed; inset: 0; width: 100%; height: 100%; display: block; }
+
+#carregando {
+  position: fixed; inset: 0; display: grid; place-items: center;
+  background: var(--fundo); color: var(--apagado);
+  font-family: var(--maquina); font-size: 20px; letter-spacing: 0.08em;
+  transition: opacity 0.8s; z-index: 10;
+}
+#carregando.pronto { opacity: 0; pointer-events: none; }
+
+/* ---- topo ---- */
+#topo {
+  position: fixed; top: 0; left: 0; right: 0;
+  display: flex; align-items: center; gap: 16px;
+  padding: 12px 16px;
+  background: linear-gradient(to bottom, rgba(11, 8, 7, 0.85), transparent);
+  pointer-events: none;
+}
+#topo > * { pointer-events: auto; }
+
+#marca { font-family: var(--maquina); font-size: 20px; letter-spacing: 0.1em; display: flex; align-items: center; gap: 8px; }
+#conexao { width: 8px; height: 8px; border-radius: 50%; background: var(--vermelho); box-shadow: 0 0 8px var(--vermelho); }
+#conexao.online { background: #6fbf73; box-shadow: 0 0 8px #6fbf73; }
+
+#estado { color: var(--apagado); font-size: 12px; flex: 1; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+#estado.pensando { color: var(--ambar); }
+
+#controles { display: flex; gap: 6px; flex-wrap: wrap; justify-content: flex-end; }
+
+button {
+  font: inherit; font-size: 12px; color: var(--texto);
+  background: var(--painel); border: 1px solid var(--borda); border-radius: 4px;
+  padding: 6px 10px; cursor: pointer;
+}
+button:hover { border-color: var(--ambar); }
+button.ativo { color: var(--ambar); border-color: var(--ambar); }
+
+/* ---- legenda ---- */
+#legenda {
+  position: fixed; left: 50%; bottom: 150px; transform: translateX(-50%);
+  width: min(720px, calc(100% - 32px));
+  text-align: center; font-family: var(--maquina); font-size: 22px; line-height: 1.35;
+  color: #f1e4cc; text-shadow: 0 2px 12px #000, 0 0 2px #000;
+  opacity: 0; transition: opacity 0.6s; pointer-events: none;
+}
+#legenda.visivel { opacity: 1; }
+
+/* ---- painel de conversa ---- */
+#painel {
+  position: fixed; left: 16px; bottom: 16px;
+  width: min(420px, calc(100% - 32px));
+  display: flex; flex-direction: column; gap: 8px;
+}
+
+#mensagens {
+  list-style: none; margin: 0; padding: 0 4px 0 0;
+  max-height: 34vh; overflow-y: auto;
+  display: flex; flex-direction: column; gap: 6px;
+  mask-image: linear-gradient(to bottom, transparent, #000 24px);
+}
+#mensagens li {
+  background: var(--painel); border: 1px solid var(--borda); border-radius: 6px;
+  padding: 6px 10px; line-height: 1.4; backdrop-filter: blur(4px);
+}
+#mensagens li.voce { align-self: flex-end; color: var(--apagado); }
+#mensagens li.virt b { color: var(--ambar); font-weight: 500; margin-right: 6px; }
+#mensagens li.sistema { align-self: center; font-size: 12px; color: var(--apagado); background: none; border: none; }
+
+#formulario { display: flex; gap: 6px; }
+#entrada {
+  flex: 1; font: inherit; color: var(--texto);
+  background: var(--painel); border: 1px solid var(--borda); border-radius: 4px;
+  padding: 10px 12px; outline: none; backdrop-filter: blur(4px);
+}
+#entrada:focus { border-color: var(--ambar); }
+
+@media (max-width: 640px) {
+  #estado { display: none; }
+  #legenda { bottom: calc(34vh + 90px); font-size: 18px; }
+}

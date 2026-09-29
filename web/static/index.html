@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>virt · oficina</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&family=Special+Elite&display=swap">
+  <link rel="stylesheet" href="/static/style.css">
+  <!-- Three.js via CDN (precisa de internet na primeira carga) -->
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "https://cdn.jsdelivr.net/npm/three@0.169.0/build/three.module.js",
+        "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.169.0/examples/jsm/"
+      }
+    }
+  </script>
+</head>
+<body>
+  <canvas id="cena"></canvas>
+
+  <div id="carregando">ligando o virt…</div>
+
+  <!-- Barra superior: estado do robô e controles -->
+  <header id="topo">
+    <div id="marca"><span id="conexao" title="conexão com o cérebro"></span> virt</div>
+    <div id="estado">—</div>
+    <nav id="controles">
+      <button data-camera="rosto">rosto</button>
+      <button data-camera="busto" class="ativo">busto</button>
+      <button data-camera="corpo">corpo</button>
+      <button id="voz" title="o virt fala em voz alta (voz do navegador)">voz: off</button>
+    </nav>
+  </header>
+
+  <!-- Legenda da fala atual -->
+  <div id="legenda"></div>
+
+  <!-- Conversa -->
+  <section id="painel">
+    <ol id="mensagens"></ol>
+    <form id="formulario" autocomplete="off">
+      <input id="entrada" placeholder="fale com o virt…" maxlength="2000" autofocus>
+      <button type="submit">enviar</button>
+    </form>
+  </section>
+
+  <script type="module" src="/static/app.js"></script>
+</body>
+</html>
